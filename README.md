@@ -35,4 +35,4 @@ sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 
  - https://github.com/run-ai/fake-gpu-operator | Emulating GPU clusters without physical hardware
  - https://github.com/canonical/microceph | HPC storage supporting block, file and S3
- - https://slurm.schedmd.com/slinky.html | SLURM on Kubernetes
+ - https://github.com/SlinkyProject/slurm-operator | SLURM on Kubernetes
