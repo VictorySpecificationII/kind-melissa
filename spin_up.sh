@@ -1,16 +1,5 @@
 #!/bin/bash
 
-#kind create cluster --config k8s.yaml --name melissa
-#sleep 20s
-#kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
-#sleep 10s
-#kubectl label nodes melissa-worker role=worker
-#kubectl label nodes melissa-worker2 role=worker
-#kubectl label nodes melissa-worker3 role=worker
-#kubectl label nodes melissa-worker4 role=worker
-#kubectl label nodes melissa-worker5 role=worker
-#kubectl label nodes melissa-worker6 role=worker
-
 set -euxo pipefail
 
 # Create the cluster
