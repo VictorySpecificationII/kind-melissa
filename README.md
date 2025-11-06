@@ -30,3 +30,9 @@ sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
  - To spin up, run `./spin_up.sh`
  - To tear down, run `./tear_down.sh`
  - To view cluster load, run `kubectl top node`
+
+## Cool Stuff to experiment with
+
+ - https://github.com/run-ai/fake-gpu-operator | Emulating GPU clusters without physical hardware
+ - https://github.com/canonical/microceph | HPC storage supporting block, file and S3
+ - https://slurm.schedmd.com/slinky.html | SLURM on Kubernetes
