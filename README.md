@@ -73,6 +73,32 @@ rm cilium-linux-${CLI_ARCH}.tar.gz{,.sha256sum}
 
 Once it's installed, run `cilium status` to see the status of your CNI.
 
+## Install Hubble
+
+You can install Hubble via the Helm chart:
+```
+helm upgrade cilium cilium/cilium --version 1.18.4 --namespace kube-system --reuse-values --set hubble.relay.enabled=true
+```
+
+You can run `cilium status` to see the Hubble status: It should say `OK`.
+
+## Install Hubble CLI
+
+Run the following sequence in your terminal:
+
+```
+HUBBLE_VERSION=$(curl -s https://raw.githubusercontent.com/cilium/hubble/master/stable.txt)
+HUBBLE_ARCH=amd64
+if [ "$(uname -m)" = "aarch64" ]; then HUBBLE_ARCH=arm64; fi
+curl -L --fail --remote-name-all https://github.com/cilium/hubble/releases/download/$HUBBLE_VERSION/hubble-linux-${HUBBLE_ARCH}.tar.gz{,.sha256sum}
+sha256sum --check hubble-linux-${HUBBLE_ARCH}.tar.gz.sha256sum
+sudo tar xzvfC hubble-linux-${HUBBLE_ARCH}.tar.gz /usr/local/bin
+rm hubble-linux-${HUBBLE_ARCH}.tar.gz{,.sha256sum}
+
+```
+
+You can verify your Hubble installation by running `hubble status -P`. You can observe the flow by querying the API with `hubble observe -P`.
+
 ## Cool Stuff to experiment with
 
  - https://github.com/run-ai/fake-gpu-operator | Emulating GPU clusters without physical hardware
