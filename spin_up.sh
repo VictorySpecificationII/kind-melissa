@@ -24,11 +24,11 @@ for i in {2..6}; do
 done
 
 #Taint workers so only pods with matching toleration can run
-for i in {4..6}; do
-  kubectl taint nodes melissa-worker$i dedicated=autoscaler:NoSchedule --overwrite
-done
+#for i in {4..6}; do
+#  kubectl taint nodes melissa-worker$i dedicated=autoscaler:NoSchedule --overwrite
+#done
 
 #Cordon them so no new pods can schedule unless toleration exists
-for i in {4..6}; do
-  kubectl cordon melissa-worker$i
-done
+#for i in {4..6}; do
+#  kubectl cordon melissa-worker$i
+#done
