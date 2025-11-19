@@ -26,6 +26,13 @@ curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stabl
 sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 ```
 
+### Helm
+
+Placeholder for the procedure, you can get by using:
+```
+sudo snap install helm --classic
+```
+
 ## Usage
  - Run `chmod +x spin_up.sh`
  - Run `chmod +x tear_down.sh`
