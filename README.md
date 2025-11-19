@@ -100,6 +100,30 @@ rm hubble-linux-${HUBBLE_ARCH}.tar.gz{,.sha256sum}
 
 You can verify your Hubble installation by running `hubble status -P`. You can observe the flow by querying the API with `hubble observe -P`.
 
+## Install MetalLB
+
+First, install it
+```
+kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.15.2/config/manifests/metallb-native.yaml
+```
+
+Then, apply the IP address pool by running `kubectl apply -f iprange.yaml` inside the `metallb` directory.
+
+## Install NGINX Ingress Controller
+
+Install it using the following command:
+```
+kubectl apply -f https://kind.sigs.k8s.io/examples/ingress/deploy-ingress-nginx.yaml
+```
+
+You can then see the Ingress Controller grab a LoadBalancer address from `MetalLB` by running `kubectl get svc -A` and inspecting the
+`EXTERNAL IP` field.
+
+## Example applications
+
+In the `http-echo` and `http-test` directories, you can find example applications to run. Their respective READMEs will help guide you.
+The TL;DR is: The former application verifies that the Load Balancer works. The latter, helps you see how Cilium and Hubble work.
+
 ## Cool Stuff to experiment with
 
  - https://github.com/run-ai/fake-gpu-operator | Emulating GPU clusters without physical hardware
