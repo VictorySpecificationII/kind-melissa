@@ -5,7 +5,8 @@ You can either read it as the greek word for bee, or the name.
 This repository houses an implementation for a Kubernetes-in-Docker cluster.
 HA mode is a little flaky, you can try by uncommenting the master nodes from the `k8s.yaml` file. 
 You can use this to spin up and tear down a quick cluster for learning and development.
-It disables the native CNI and replaces it with Cilium.
+It disables the native CNI and replaces it with `Cilium` and `Hubble` for observability, along with
+`NGINX` for ingress control and `MetalLB` for L2 Load Balancing.
 It comes bundled with `kube-metrics` so you can have basic observability for your cluster.
 
 ## Prerequisites
@@ -122,7 +123,6 @@ You can then see the Ingress Controller grab a LoadBalancer address from `MetalL
 ## Example applications
 
 In the `http-echo` and `http-test` directories, you can find example applications to run. Their respective READMEs will help guide you.
-The TL;DR is: The former application verifies that the Load Balancer works. The latter, helps you see how Cilium and Hubble work.
 
 ## Cool Stuff to experiment with
 
