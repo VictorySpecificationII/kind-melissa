@@ -2,7 +2,8 @@
 
 You can either read it as the greek word for bee, or the name.
 
-This repository houses an implementation for a Kubernetes-in-Docker HA cluster. 
+This repository houses an implementation for a Kubernetes-in-Docker cluster.
+HA mode is a little flaky, you can try by uncommenting the master nodes from the `k8s.yaml` file. 
 You can use this to spin up and tear down a quick cluster for learning and development.
 It disables the native CNI and replaces it with Cilium.
 It comes bundled with `kube-metrics` so you can have basic observability for your cluster.
