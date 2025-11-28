@@ -6,8 +6,9 @@ This repository houses an implementation for a Kubernetes-in-Docker cluster.
 HA mode is a little flaky, you can try by uncommenting the master nodes from the `k8s.yaml` file. 
 You can use this to spin up and tear down a quick cluster for learning and development.
 It disables the native CNI and replaces it with `Cilium` and `Hubble` for observability, along with
-`NGINX` for ingress control and `MetalLB` for L2 Load Balancing.
-It comes bundled with `kube-metrics` so you can have basic observability for your cluster.
+`NGINX` for ingress control and `MetalLB` for L2 Load Balancing. For launching VM's on K8s, `kubevirt`
+is installed and `virtcli` is used to manage and access them. It comes bundled with `kube-metrics` so 
+you can have basic observability for your cluster.
 
 ## Prerequisites
 
@@ -158,14 +159,14 @@ sudo sysctl -p
 
 Install using:
 ```
-VERSION=$(kubectl get kubevirt.kubevirt.io/kubevirt -n kubevirt -o=jsonpath="{.status.observedKubeVirtVersion}")
-ARCH=$(uname -s | tr A-Z a-z)-$(uname -m | sed 's/x86_64/amd64/') || windows-amd64.exe
-echo ${ARCH}
-curl -L -o virtctl https://github.com/kubevirt/kubevirt/releases/download/${VERSION}/virtctl-${VERSION}-${ARCH}
-sudo install -m 0755 virtctl /usr/local/bin
+VERSION=$(curl -s https://storage.googleapis.com/kubevirt-prow/release/kubevirt/kubevirt/stable.txt)
+ARCH="$(uname -s | tr 'A-Z' 'a-z')-$(uname -m | sed 's/x86_64/amd64/')"
+URL="https://github.com/kubevirt/kubevirt/releases/download/${VERSION}/virtctl-${VERSION}-${ARCH}"
+curl -L -o virtctl "$URL"
+chmod +x virtctl
+sudo mv virtctl /usr/local/bin/
+virtctl version
 ```
-
-
 
 ## Example applications
 
