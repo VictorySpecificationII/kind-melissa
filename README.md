@@ -127,6 +127,46 @@ kubectl apply -f https://kind.sigs.k8s.io/examples/ingress/deploy-ingress-nginx.
 You can then see the Ingress Controller grab a LoadBalancer address from `MetalLB` by running `kubectl get svc -A` and inspecting the
 `EXTERNAL IP` field.
 
+## Install KubeVirt
+
+KubeVirt allows you to launch Virtual Machines on Kubernetes.
+
+Install the CRD's using:
+
+```
+kubectl create -f "https://github.com/kubevirt/kubevirt/releases/download/${VERSION}/kubevirt-cr.yaml"
+```
+
+Then install KubeVirt using:
+
+```
+export VERSION=$(curl -s https://storage.googleapis.com/kubevirt-prow/release/kubevirt/kubevirt/stable.txt)
+
+echo $VERSION
+kubectl create -f "https://github.com/kubevirt/kubevirt/releases/download/${VERSION}/kubevirt-operator.yaml"
+```
+
+If the deployment doesn't come up and the handler pods complain about `too many open files`, increase the number on the host:
+
+```
+echo "fs.inotify.max_user_watches = 524288" | sudo tee -a /etc/sysctl.conf
+echo "fs.inotify.max_user_instances = 8192" | sudo tee -a /etc/sysctl.conf
+sudo sysctl -p
+```
+
+## Install KubeVirt CLI
+
+Install using:
+```
+VERSION=$(kubectl get kubevirt.kubevirt.io/kubevirt -n kubevirt -o=jsonpath="{.status.observedKubeVirtVersion}")
+ARCH=$(uname -s | tr A-Z a-z)-$(uname -m | sed 's/x86_64/amd64/') || windows-amd64.exe
+echo ${ARCH}
+curl -L -o virtctl https://github.com/kubevirt/kubevirt/releases/download/${VERSION}/virtctl-${VERSION}-${ARCH}
+sudo install -m 0755 virtctl /usr/local/bin
+```
+
+
+
 ## Example applications
 
 In the `http-echo` and `http-test` directories, you can find example applications to run. Their respective READMEs will help guide you.
