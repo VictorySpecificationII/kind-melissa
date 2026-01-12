@@ -10,6 +10,9 @@ It disables the native CNI and replaces it with `Cilium` and `Hubble` for observ
 is installed and `virtcli` is used to manage and access them. It comes bundled with `kube-metrics` so 
 you can have basic observability for your cluster.
 
+This particular implementation is meant to act as a mini HPC cluster.
+
+
 ## Prerequisites
 
 For this to work, you need `kind` and `kubectl`. Follow the instructions to install them on your operating system.
