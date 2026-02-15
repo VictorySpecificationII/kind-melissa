@@ -1,17 +1,44 @@
 # KinD-melissa
 
+# KinD-melissa
+
 You can either read it as the greek word for bee, or the name.
 
-This repository houses an implementation for a Kubernetes-in-Docker cluster.
-HA mode is a little flaky, you can try by uncommenting the master nodes from the `k8s.yaml` file. 
-You can use this to spin up and tear down a quick cluster for learning and development.
-It disables the native CNI and replaces it with `Cilium` and `Hubble` for observability, along with
-`NGINX` for ingress control and `MetalLB` for L2 Load Balancing. For launching VM's on K8s, `kubevirt`
-is installed and `virtcli` is used to manage and access them. It comes bundled with `kube-metrics` so 
-you can have basic observability for your cluster.
+This repository implements a reproducible Kubernetes-in-Docker cluster designed to act as a mini HPC and platform experimentation environment. It allows rapid spin-up and tear-down of a full infrastructure stack locally, enabling safe experimentation with orchestration, networking, storage, observability, and compute workloads.
 
-This particular implementation is meant to act as a mini HPC cluster.
+Unlike a default KinD cluster, this environment intentionally replaces and extends core Kubernetes components to more closely resemble production infrastructure.
 
+It disables the native CNI and replaces it with `Cilium` and `Hubble` for eBPF-based networking and observability, uses `MetalLB` for L2 LoadBalancer functionality, and deploys `NGINX` for ingress control. `KubeVirt` is installed to allow virtual machines to run alongside containers, enabling hybrid workload experimentation. The cluster includes `metrics-server` to provide baseline telemetry.
+
+This particular implementation is meant to act as a mini HPC and platform engineering environment, supporting experimentation across the full infrastructure stack.
+
+Following this guide, you will set up:
+
+- **Infrastructure layer** — Kubernetes control plane and worker nodes  
+- **Compute layer** — container workloads and virtual machines (KubeVirt, SLURM experimentation)  
+- **Networking layer** — Cilium CNI, Hubble observability, MetalLB LoadBalancer, ingress routing  
+- **Storage layer** — designed for integration with BeeGFS and Ceph (RBD, CephFS, RGW modes)  
+- **Management layer** — kubectl, hubble, cilium CLI, and platform tooling  
+
+By the end of this process, you will have a fully reproducible mini HPC and platform infrastructure environment running locally.
+
+---
+
+## Purpose
+
+This environment exists to provide a safe, reproducible platform for infrastructure experimentation, validation, and learning.
+
+It enables:
+
+- Testing infrastructure configurations before production deployment  
+- Experimenting with Kubernetes networking and observability  
+- Running hybrid VM and container workloads  
+- Evaluating distributed storage integration patterns  
+- Understanding cluster behavior under different orchestration scenarios  
+
+The cluster lifecycle is fully automated, allowing rapid creation, teardown, and iteration.
+
+---
 
 ## Prerequisites
 
