@@ -1,7 +1,5 @@
 # KinD-melissa
 
-# KinD-melissa
-
 You can either read it as the greek word for bee, or the name.
 
 This repository implements a reproducible Kubernetes-in-Docker cluster designed to act as a mini HPC and platform experimentation environment. It allows rapid spin-up and tear-down of a full infrastructure stack locally, enabling safe experimentation with orchestration, networking, storage, observability, and compute workloads.
@@ -65,6 +63,18 @@ sudo snap install helm --classic
 ```
 
 ## Usage
+
+For a HA cluster, you are going to hit inotify limits. Before running anything, run:
+
+```
+sudo sysctl fs.inotify.max_user_watches=524288
+sudo sysctl fs.inotify.max_user_instances=512
+```
+
+It won't survive a reboot, bear in mind.
+
+Now run:
+
  - Run `chmod +x spin_up.sh`
  - Run `chmod +x tear_down.sh`
  - To spin up, run `./spin_up.sh`
