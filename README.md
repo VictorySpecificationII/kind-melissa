@@ -73,6 +73,14 @@ sudo sysctl fs.inotify.max_user_instances=512
 
 It won't survive a reboot, bear in mind.
 
+For it to do, run:
+
+```
+echo -e "fs.inotify.max_user_watches = 524288\nfs.inotify.max_user_instances = 512" | sudo tee /etc/sysctl.d/99-kind-inotify.conf
+sudo sysctl --system
+```
+
+
 Now run:
 
  - Run `chmod +x spin_up.sh`
